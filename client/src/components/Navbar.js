@@ -88,7 +88,7 @@ export default function Navbar(props) {
       <StyledNav className="navbar navbar-expand-sm navbar-dark bg-dark">
         {console.log(size)}
         <a className="navbar-brand" href="/" style={styles.brand}>
-          LoreText
+          StoryBoard
         </a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>

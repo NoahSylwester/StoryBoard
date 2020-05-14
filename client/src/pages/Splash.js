@@ -45,7 +45,8 @@ export default function Splash(props) {
     <div style={styles.page}>
     {/* <div style={{backgroundImage: 'url("https://images.unsplash.com/photo-1485745492261-a3819c494d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80")'}}> */}
         {/* <img style={styles.splash} src={'https://images.unsplash.com/photo-1485745492261-a3819c494d11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'} alt="resistthere splash" /> */}
-        <h1 style={styles.title}>LoreText</h1>
+        <h1 style={styles.title}>StoryBoard</h1>
+        <h4 style={styles.centerAlign}>Share your stories</h4>
         <div className='container'>
             <div className='row'>
                 <div style={styles.centerAlign} className="col-6">

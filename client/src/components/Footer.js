@@ -33,27 +33,27 @@ export default function Footer() {
                 </li>
                 </ul>
             </div>
-            {/* <div className="col-md-3 mb-md-0 mb-3">
-                <h5 className="text-uppercase" style={styles.header}>Lore Sources</h5>
+            <div className="col-md-3 mb-md-0 mb-3">
+                <h5 className="text-uppercase" style={styles.header}>Contact</h5>
                 <ul className="list-unstyled">
                 <li>
-                    <Link href="https://www.nytimes.com/">NY Times</Link>
+                    <p style={styles.contact}>noahsylwester@gmail.com</p>
                 </li>
                 <li>
-                    <Link href="https://www.npr.org/">NPR</Link>
+                    <Link href="https://www.linkedin.com/in/noah-sylwester-8536b6141/">Linkedin</Link>
                 </li>
                 <li>
-                    <Link href="https://www.washingtonpost.com/">Washington Post</Link>
+                    <Link href="https://github.com/NoahSylwester">GitHub</Link>
                 </li>
                 <li>
-                    <Link href="https://www.wsj.com/">Wall Street Journal</Link>
+                    <Link href="https://noahsylwester.github.io/Portfolio/">Portfolio</Link>
                 </li>
                 </ul>
-            </div> */}
+            </div>
             </div>
         </div>
         <div className="footer-copyright text-center py-3">© 2020 Copyright:
-            LoreText
+            StoryBoard
         </div>
     </footer>
   );
@@ -68,6 +68,9 @@ const styles = {
         position: 'relative',
     },
     header: {
+        color: Colors.color1
+    },
+    contact: {
         color: Colors.color1
     }
 }
