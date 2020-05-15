@@ -36,7 +36,7 @@ function Login(props) {
                 <div className="col" style={styles.center}>
                     <h1 style={styles.pageTitle} >Login</h1>
                     <div style={styles.centerAlign}>
-                        <p>demo access: email - demo@demo.com, password - password</p>
+                        <p><strong>demo access:</strong> <i>email</i> - demo@demo.com, <i>password</i> - password</p>
                         <label htmlFor="email">Email</label>
                         <input value={email} onChange={(event) => setEmail(event.target.value)} type="text" id="email" placeholder="Enter email"></input>
                         <label htmlFor="password">Password</label>
