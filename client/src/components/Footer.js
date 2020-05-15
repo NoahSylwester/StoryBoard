@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="container-fluid text-center text-md-left">
             <div className="row">
             <div className="col-md-6 mt-md-0 mt-3">
-                <h5 className="text-uppercase" style={styles.header}>LoreText</h5>
+                <h5 className="text-uppercase" style={styles.header}>StoryBoard</h5>
                 <p style={styles.header}>Join the community and share your stories!</p>
             </div>
             <hr className="clearfix w-100 d-md-none pb-3" />
