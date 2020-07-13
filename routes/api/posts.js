@@ -12,6 +12,5 @@ router
   .get(postsController.findById)
   .post(postsController.createReply)
   .put(postsController.update)
-  // .delete(postsController.remove);
 
 module.exports = router;

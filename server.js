@@ -25,8 +25,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// app.use(express.static("client/build"));
-
 // Add routes, both API and view
 app.use(routes);
 
@@ -37,15 +35,6 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-
-// import SimpleCrypto from 'simple-crypto-js';
-
-//     const saveToken = (token = '') => {
-//           const encryptInit = new SimpleCrypto('PRIVATE_KEY_STORED_IN_ENV_FILE');
-//           const encryptedToken = encryptInit.encrypt(token);
-
-//           localStorage.setItem('token', encryptedToken);
-//      }
 
 // Send every other request to the React app
 // Define any API routes before this runs
@@ -58,5 +47,3 @@ app.get("*", withAuth, (req, res) => {
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
-
-// "proxy": "http://localhost:3001/",
