@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link as RouterLink } from 'react-router-dom'
 import Auth from '../utils/Auth';
 import Colors from '../themes/colors';
 import styled from 'styled-components';
@@ -11,17 +12,18 @@ const StyledNav = styled.nav`
   background-image: url(${Colors.image});
   background-size: cover;
 `
-const Link = styled.a`
+const Link = styled(RouterLink)`
   color: ${Colors.color2} !important;
   background-color: rgba(0,0,0,0.4);
   padding: 3px;
   border-radius: 5px;
   :hover {
+    text-decoration: none;
     background-color: rgba(0,0,0,0.6);
   }
 `
 
-const CurrentPage = styled.a`
+const CurrentPage = styled(RouterLink)`
   color: ${Colors.color1} !important;
   background-color: rgba(0,0,0,0.7);
   padding: 3px;
@@ -87,9 +89,9 @@ export default function Navbar(props) {
     return (
       <StyledNav className="navbar navbar-expand-sm navbar-dark bg-dark">
         {console.log(size)}
-        <a className="navbar-brand" href="/" style={styles.brand}>
+        <RouterLink className="navbar-brand" to="/" style={styles.brand}>
           StoryBoard
-        </a>
+        </RouterLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -99,29 +101,29 @@ export default function Navbar(props) {
                 <li className="px-2" style={styles.linkWrapper}>
                   {props.pageType === "archive"
                     ? 
-                    <CurrentPage href="/archive" style={size.width < 576 ? {margin: 0, padding: 3, borderRadius: 5} : {}}>Archive</CurrentPage>
+                    <CurrentPage to="/archive" style={size.width < 576 ? {margin: 0, padding: 3, borderRadius: 5} : {}}>Archive</CurrentPage>
                     :
-                    <Link href="/archive" style={styles.link}>Archive</Link>
+                    <Link to="/archive" style={styles.link}>Archive</Link>
                   }
                 </li>
                 <li className="px-2" style={styles.linkWrapper}>
                   {props.pageType === "forum"
                     ? 
-                    <CurrentPage href="/forum" style={size.width < 576 ? {margin: 0, padding: 3, borderRadius: 5} : {}}>Forum</CurrentPage>
+                    <CurrentPage to="/forum" style={size.width < 576 ? {margin: 0, padding: 3, borderRadius: 5} : {}}>Forum</CurrentPage>
                     :
-                    <Link href="/forum" style={styles.link}>Forum</Link>
+                    <Link to="/forum" style={styles.link}>Forum</Link>
                   }
                 </li>
                 <li className="px-2" style={styles.linkWrapper}>
                   {props.pageType === "events"
                     ? 
-                    <CurrentPage href="/events_page" style={size.width < 576 ? {margin: 0, padding: 3, borderRadius: 5} : {}}>Events</CurrentPage>
+                    <CurrentPage to="/events_page" style={size.width < 576 ? {margin: 0, padding: 3, borderRadius: 5} : {}}>Events</CurrentPage>
                     :
-                    <Link href="/events_page" style={styles.link}>Events</Link>
+                    <Link to="/events_page" style={styles.link}>Events</Link>
                   }
                 </li>
                 {authStatus ?
-                  <li className="px-2" style={styles.linkWrapper}><Link href="/admin" style={styles.link}>Admin</Link></li>
+                  <li className="px-2" style={styles.linkWrapper}><Link to="/admin" style={styles.link}>Admin</Link></li>
                   :
                   <div/>
                 }

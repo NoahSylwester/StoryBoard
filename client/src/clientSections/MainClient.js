@@ -23,6 +23,7 @@ export default function MainClient(props) {
 
     const [authStatus, setAuthStatus] = useState(false)
     const [currentPage, setCurrentPage] = useState('')
+    const [showFooter, setShowFooter] = useState(false)
     
     useEffect(() => {
         async function check(){
@@ -40,6 +41,13 @@ export default function MainClient(props) {
         }
         check();
       }, [])
+
+    useEffect(() => {
+      setShowFooter(false)
+      setTimeout(() => {
+        setShowFooter(true)
+      }, 200)
+    }, [currentPage])
 
     const renderer = (Component, selectedPage = '') => (innerProps) => {
       setCurrentPage(selectedPage);
@@ -63,7 +71,7 @@ export default function MainClient(props) {
                 <Route path={`${path}submit/thread`} render={renderer(NewThreadForm, 'forum')} />
                 <Route path="*" render={renderer(NotFound)} />
             </Switch>
-            <Footer />
+            {showFooter ? <Footer /> : <></>}
         </div>
         :
         <div>Authenticating</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import Colors from "../themes/colors";
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const Link = styled.a`
     color: ${Colors.color1} !important;
@@ -9,9 +9,25 @@ const Link = styled.a`
     }
 `
 
+const footerFadeIn = keyframes`
+    from {
+        opacity: 0;
+        margin-top: 50px;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: 0px;
+    }
+`;
+
+const FooterStyled = styled.footer`
+    animation: ${footerFadeIn} 0.5s ease-out;
+`
+
 export default function Footer() {
   return (
-    <footer style={styles.footer} className="page-footer font-small blue pt-4">
+    <FooterStyled style={styles.footer} className="page-footer font-small blue pt-4">
         <div className="container-fluid text-center text-md-left">
             <div className="row">
             <div className="col-md-6 mt-md-0 mt-3">
@@ -55,7 +71,7 @@ export default function Footer() {
         <div className="footer-copyright text-center py-3">© 2020 Copyright:
             StoryBoard
         </div>
-    </footer>
+    </FooterStyled>
   );
 };
 
@@ -66,6 +82,7 @@ const styles = {
         backgroundPosition: "0 100%",
         backgroundSize: "cover",
         position: 'relative',
+        bottom: 0,
     },
     header: {
         color: Colors.color1
