@@ -1,11 +1,24 @@
 import React from "react";
 import API from '../utils/API';
-import styled from 'styled-components';
 import Colors from '../themes/colors';
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+`;
+
+const Item = styled.div`
+    animation: ${fadeIn} 0.8s ease-out;
+`
 
 const HoverAnchor = styled.a`
     :hover {
-      width: 100% !important;
       padding: 10px 0px !important;
       margin: 0px !important;
       background-color: ${Colors.color1} !important;
@@ -28,7 +41,7 @@ export default function ArchiveItem(props) {
   }
 
   return (
-    <div style={styles.wrapper}>
+    <Item style={styles.wrapper}>
       <HoverAnchor style={styles.archiveItem} className="row" href={`/snippet/${props.item._id}`}>
           <span className="col-6">
             <h2>{props.item.title}</h2>
@@ -39,7 +52,7 @@ export default function ArchiveItem(props) {
             {props.item.topics ? props.item.topics.map((item) => <div key={item} style={styles.topic}>{item}</div>) : <div/>}
           </div>
       </HoverAnchor>
-    </div>
+    </Item>
   );
 
 }
