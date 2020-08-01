@@ -16,6 +16,7 @@ export default function CommentsContainer(props) {
 const styles = {
     posts: {
         width: "100%",
+        minHeight: "100px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center"

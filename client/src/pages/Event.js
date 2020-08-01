@@ -4,10 +4,26 @@ import CommentsContainer from '../components/CommentsContainer';
 import CommentModal from '../components/CommentModal';
 import ReplyModal from '../components/ReplyModal';
 import Colors from '../themes/colors';
+import SVGLoadingIcon from '../components/SVGLoadingIcon'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+`;
+
+const FadeInWrapper = styled.div`
+    animation: ${fadeIn} 0.8s ease-out;
+`
 
 export default function Event(props) {
   // set state of forum contents
-  const [event, setEvent] = useState([]);
+  const [event, setEvent] = useState(null);
 
   // fill forum with Events on load
 
@@ -36,26 +52,32 @@ export default function Event(props) {
   const [repliedToPostFn, setRepliedToPostFn] = useState(() => () => undefined)
 
   return (
-    <div style={styles.page}>
-        <CommentModal update={() => fetchEvent()} parentEntityType={"event"} parentEntityId={event._id} />
-        <ReplyModal repliedTo={repliedTo} updatePost={repliedToPostFn} parentEntityType={"event"} parentEntityId={event._id} />
+    event
+    ?
+    <FadeInWrapper>
+      <div style={styles.page}>
+          <CommentModal update={() => fetchEvent()} parentEntityType={"event"} parentEntityId={event._id} />
+          <ReplyModal repliedTo={repliedTo} updatePost={repliedToPostFn} parentEntityType={"event"} parentEntityId={event._id} />
 
-        <header style={styles.header}>
-            <h1>{event.title}</h1>
-            <i>{parseDate(event.date)}</i>
-            <div>{event.topics ? event.topics.map((item) => <span key={item} style={styles.topic}>{item}</span>) : <div/>}</div>
-        </header>
+          <header style={styles.header}>
+              <h1>{event.title}</h1>
+              <i>{parseDate(event.date)}</i>
+              <div>{event.topics ? event.topics.map((item) => <span key={item} style={styles.topic}>{item}</span>) : <div/>}</div>
+          </header>
 
-        <div style={styles.body}>
-          <p style={styles.content}>{event.content}</p>  
-        </div>
-        
-        {/* comments area */}
-        <h2>Comments</h2>
-        <button className="btn btn-md btn-dark" data-toggle="modal" data-target="#commentModal">Comment</button>
-        
-        <CommentsContainer pass={{ parent: event, setRepliedTo, setRepliedToPostFn }} />
-    </div>
+          <div style={styles.body}>
+            <p style={styles.content}>{event.content}</p>  
+          </div>
+          
+          {/* comments area */}
+          <h2>Comments</h2>
+          <button className="btn btn-md btn-dark" data-toggle="modal" data-target="#commentModal">Comment</button>
+          
+          <CommentsContainer pass={{ parent: event, setRepliedTo, setRepliedToPostFn }} />
+      </div>
+    </FadeInWrapper>
+    :
+    <SVGLoadingIcon/>
   );
 }
 

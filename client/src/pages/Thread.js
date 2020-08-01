@@ -4,6 +4,22 @@ import CommentsContainer from '../components/CommentsContainer';
 import CommentModal from '../components/CommentModal';
 import ReplyModal from '../components/ReplyModal';
 import Colors from '../themes/colors';
+import SVGLoadingIcon from '../components/SVGLoadingIcon'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+`;
+
+const FadeInWrapper = styled.div`
+    animation: ${fadeIn} 0.8s ease-out;
+`
 
 export default function Thread(props) {
 
@@ -34,28 +50,31 @@ export default function Thread(props) {
   }
 
   return (
-    thread ?
-    <div style={styles.page}>
-        <CommentModal update={() => updateThread(props.match.params.id)} parentEntityType={"thread"} parentEntityId={thread._id} />
-        <ReplyModal repliedTo={repliedTo} updatePost={repliedToPostFn} parentEntityType={"thread"} parentEntityId={thread._id} />
-        <header style={styles.firstPost}>
-          <h1>{thread.title}</h1>
-          <i>{parseDate(thread.date_created)}</i>
-          <p>Author:</p>
-          <h3>{thread.author.name}</h3>
+    thread
+    ?
+    <FadeInWrapper>
+      <div style={styles.page}>
+          <CommentModal update={() => updateThread(props.match.params.id)} parentEntityType={"thread"} parentEntityId={thread._id} />
+          <ReplyModal repliedTo={repliedTo} updatePost={repliedToPostFn} parentEntityType={"thread"} parentEntityId={thread._id} />
+          <header style={styles.firstPost}>
+            <h1>{thread.title}</h1>
+            <i>{parseDate(thread.date_created)}</i>
+            <p>Author:</p>
+            <h3>{thread.author.name}</h3>
 
-          <div>{thread.topics ? thread.topics.map((item) => <span key={item} style={styles.topic}>{item}</span>) : <div/>}</div>
+            <div>{thread.topics ? thread.topics.map((item) => <span key={item} style={styles.topic}>{item}</span>) : <div/>}</div>
 
-          <hr />
-          <p style={styles.content}>{thread.content}</p>
-        </header>
-        <button className="btn btn-md btn-dark" data-toggle="modal" data-target="#commentModal">Comment</button>
+            <hr />
+            <p style={styles.content}>{thread.content}</p>
+          </header>
+          <button className="btn btn-md btn-dark" data-toggle="modal" data-target="#commentModal">Comment</button>
 
-        <CommentsContainer pass={{ parent: thread, setRepliedTo, setRepliedToPostFn }} />
+          <CommentsContainer pass={{ parent: thread, setRepliedTo, setRepliedToPostFn }} />
 
-    </div>
+      </div>
+    </FadeInWrapper>
     :
-    <div/>
+    <SVGLoadingIcon/>
   );
 }
 

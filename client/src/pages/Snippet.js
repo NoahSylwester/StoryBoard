@@ -4,8 +4,25 @@ import CommentsContainer from '../components/CommentsContainer';
 import CommentModal from '../components/CommentModal';
 import ReplyModal from '../components/ReplyModal';
 import Colors from '../themes/colors';
+import SVGLoadingIcon from '../components/SVGLoadingIcon'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+`;
+
+const FadeInWrapper = styled.div`
+    animation: ${fadeIn} 0.8s ease-out;
+`
 
 export default function Snippet(props) {
+  
   // set state of forum contents
   const [snippet, setSnippet] = useState(undefined);
 
@@ -37,32 +54,34 @@ export default function Snippet(props) {
 
   return (
     snippet ?
-    <div style={styles.page}>
-        <CommentModal update={() => fetchSnippet()} parentEntityType={"snippet"} parentEntityId={snippet._id} />
-        <ReplyModal repliedTo={repliedTo} updatePost={repliedToPostFn} parentEntityType={"snippet"} parentEntityId={snippet._id} />
-        <header style={styles.header}>
-            <h1>{snippet.title}</h1>
-            <h5>{snippet.author.name}</h5>
-            <i>{parseDate(snippet.date_created)}</i>
-            <div>{snippet.topics ? snippet.topics.map((item) => <span key={item} style={styles.topic}>{item}</span>) : <div/>}</div>
-        </header>
-        <div style={styles.body}>
-          {snippet.snippetType === 'text' ?
-            <p style={styles.content}>{snippet.content}</p>
-          :
-            <div style={{ width: '100%', textAlign: 'center' }}>
-              <img src={`/api/snippets/image/${snippet._id}`} style={styles.imageContent} />
-            </div>
-          }
-        </div>
-        {/* comments area */}
-        <h2>Comments</h2>
-        <button className="btn btn-md btn-dark" data-toggle="modal" data-target="#commentModal">Comment</button>
-        
-        <CommentsContainer pass={{ parent: snippet, setRepliedTo, setRepliedToPostFn }} />
-    </div>
+    <FadeInWrapper>
+      <div style={styles.page}>
+          <CommentModal update={() => fetchSnippet()} parentEntityType={"snippet"} parentEntityId={snippet._id} />
+          <ReplyModal repliedTo={repliedTo} updatePost={repliedToPostFn} parentEntityType={"snippet"} parentEntityId={snippet._id} />
+          <header style={styles.header}>
+              <h1>{snippet.title}</h1>
+              <h5>{snippet.author.name}</h5>
+              <i>{parseDate(snippet.date_created)}</i>
+              <div>{snippet.topics ? snippet.topics.map((item) => <span key={item} style={styles.topic}>{item}</span>) : <div/>}</div>
+          </header>
+          <div style={styles.body}>
+            {snippet.snippetType === 'text' ?
+              <p style={styles.content}>{snippet.content}</p>
+            :
+              <div style={{ width: '100%', textAlign: 'center' }}>
+                <img src={`/api/snippets/image/${snippet._id}`} style={styles.imageContent} />
+              </div>
+            }
+          </div>
+          {/* comments area */}
+          <h2>Comments</h2>
+          <button className="btn btn-md btn-dark" data-toggle="modal" data-target="#commentModal">Comment</button>
+          
+          <CommentsContainer pass={{ parent: snippet, setRepliedTo, setRepliedToPostFn }} />
+      </div>
+    </FadeInWrapper>
     :
-    <div />
+    <SVGLoadingIcon />
   );
 }
 
