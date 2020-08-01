@@ -7,8 +7,8 @@ import SVGLoadingIcon from "../components/SVGLoadingIcon"
 
 export default function Splash(props) {
 
-  const [eventsData, setEventsData] = useState([]);
-  const [forumData, setForumData] = useState([]);
+  const [eventsData, setEventsData] = useState(null);
+  const [forumData, setForumData] = useState(null);
   
   // fill page with events on load
   useEffect(() => {
