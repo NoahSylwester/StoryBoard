@@ -3,6 +3,7 @@ import API from '../utils/API';
 import EventItem from '../components/EventItem';
 import ForumItem from '../components/ForumItem';
 import Colors from "../themes/colors";
+import SVGLoadingIcon from "../components/SVGLoadingIcon"
 
 export default function Splash(props) {
 
@@ -51,11 +52,11 @@ export default function Splash(props) {
             <div className='row'>
                 <div style={styles.centerAlign} className="col-6">
                     <h3 style={styles.columnHeader}>Recent Forum Activity:</h3>
-                    {forumData ? forumData.map((item, i) => <ForumItem splash key={i} item={item} />) : <div />}
+                    {forumData ? forumData.map((item, i) => <ForumItem splash key={i} item={item} />) : <SVGLoadingIcon small />}
                 </div>
                 <div style={styles.centerAlign} className="col-6">
                     <h3 style={styles.columnHeader}>Upcoming Events:</h3>
-                    {eventsData ? eventsData.map((item, i) => <EventItem splash key={i} item={item} />) : <div />}
+                    {eventsData ? eventsData.map((item, i) => <EventItem splash key={i} item={item} />) : <SVGLoadingIcon small />}
                 </div>
             </div>
         </div>
