@@ -3,6 +3,7 @@ import EventItem from '../components/EventItem';
 import API from '../utils/API';
 import styled from 'styled-components';
 import Colors from '../themes/colors';
+import SVGLoadingIcon from '../components/SVGLoadingIcon';
 
 const HoverAnchor = styled.a`
     :hover {
@@ -37,7 +38,7 @@ const SearchButton = styled.button`
 export default function EventsPage(props) {
 
   // set state of eventsPage contents
-  const [eventsPage, setEventsPage] = useState([]);
+  const [eventsPage, setEventsPage] = useState(null);
   // set state of search option
   const [searchOption, setSearchOption] = useState('title');
   const [searchInput, setSearchInput] = useState('');
@@ -108,9 +109,13 @@ export default function EventsPage(props) {
         <span onClick={() => setSearchOption('content')} style={searchOption === 'content' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Content</span>
       </div>
       <HoverAnchor href="/submit/event" style={styles.newSuggestionButton}>Suggest an event</HoverAnchor>
+      {eventsPage
+      ?
       <div style={styles.eventsPageContent} className="container" >
           {eventsPage.slice().reverse().map((item, i) => <EventItem key={i} item={item} />)}
       </div>
+      :
+      <SVGLoadingIcon small/>}
     </div>
   );
 }

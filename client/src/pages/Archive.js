@@ -3,6 +3,7 @@ import ArchiveItem from '../components/ArchiveItem';
 import API from '../utils/API';
 import styled from 'styled-components';
 import Colors from '../themes/colors';
+import SVGLoadingIcon from '../components/SVGLoadingIcon';
 
 const HoverAnchor = styled.a`
     :hover {
@@ -38,7 +39,7 @@ const SearchButton = styled.button`
 export default function Archive(props) {
 
   // set state of archive contents
-  const [archive, setArchive] = useState([]);
+  const [archive, setArchive] = useState(null);
   // set state of search option
   const [searchOption, setSearchOption] = useState('title');
   const [searchInput, setSearchInput] = useState('');
@@ -108,9 +109,15 @@ export default function Archive(props) {
         <span onClick={() => setSearchOption('content')} style={searchOption === 'content' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Content</span>
       </div>
       <HoverAnchor href="/submit/snippet" style={styles.newSubmissionButton}>Submit a snippet</HoverAnchor>
+      {
+      archive
+      ?
       <div style={styles.archiveContent} className="container" >
           {archive.slice().reverse().map((item, i) => <ArchiveItem key={i} item={item} />)}
       </div>
+      :
+      <SVGLoadingIcon small/>
+      }
     </div>
   );
 }

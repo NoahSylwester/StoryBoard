@@ -3,6 +3,7 @@ import ForumItem from '../components/ForumItem';
 import API from '../utils/API';
 import styled from 'styled-components';
 import Colors from '../themes/colors';
+import SVGLoadingIcon from '../components/SVGLoadingIcon';
 
 const HoverAnchor = styled.a`
     :hover {
@@ -38,7 +39,7 @@ const SearchButton = styled.button`
 export default function Forum(props) {
 
   // set state of forum contents
-  const [forum, setForum] = useState([]);
+  const [forum, setForum] = useState(null);
 
   // set state of search option
   const [searchOption, setSearchOption] = useState('title');
@@ -110,9 +111,15 @@ export default function Forum(props) {
         <span onClick={() => setSearchOption('content')} style={searchOption === 'content' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Content</span>
       </div>
       <HoverAnchor href="/submit/thread" style={styles.newSubmissionButton}>New Thread</HoverAnchor>
+      {
+      forum
+      ?
       <div style={styles.forumContent} className="container">
         {forum.slice().reverse().map((item, i) => <ForumItem key={i} item={item} />)}
       </div>
+      :
+      <SVGLoadingIcon small/>
+      }
     </div>
   );
 }

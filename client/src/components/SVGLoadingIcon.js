@@ -27,7 +27,7 @@ const loadingPulseAnimation = () => keyframes`
 
 const LoadingSVGWrapper = styled.svg`
     width: 50vw;
-    height: 80vh;
+    height: ${props => props.small ? "20vh" : "80vh"};
     margin: auto;
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@ const LoadingPulse = styled.circle`
 export default function SVGLoadingIcon(props) {
 
     return (
-        <LoadingSVGWrapper>
+        <LoadingSVGWrapper small={props.small}>
             <LoadingCircle
                 cx="50%"
                 cy="50%"
