@@ -2,6 +2,7 @@ import React from "react";
 import API from '../utils/API';
 import Colors from '../themes/colors';
 import styled, { keyframes } from 'styled-components'
+import { useMediaQuery } from 'react-responsive';
 
 const fadeIn = keyframes`
     from {
@@ -35,13 +36,17 @@ const HoverAnchor = styled.a`
 
 export default function EventItem(props) {
 
+  const isSmallScreen = !useMediaQuery({
+    query: '(min-width: 750px)'
+  })
+
   const parseDate = (dateInput) => {
     const date = new Date(dateInput);
     return date.toUTCString();
   }
 
   return (
-    !props.splash ?
+    !props.splash && !isSmallScreen ?
     <Item style={styles.wrapper}>
       <HoverAnchor style={styles.eventItem} className="row" href={`/event/${props.item._id}`}>
           <span className="col-6">

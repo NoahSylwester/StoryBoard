@@ -2,6 +2,7 @@ import React from "react";
 import API from '../utils/API';
 import Colors from '../themes/colors';
 import styled, { keyframes } from 'styled-components'
+import { useMediaQuery } from 'react-responsive';
 
 const fadeIn = keyframes`
     from {
@@ -40,7 +41,13 @@ export default function ArchiveItem(props) {
     return date.toUTCString();
   }
 
+  const isSmallScreen = !useMediaQuery({
+    query: '(min-width: 750px)'
+  })
+
   return (
+    !isSmallScreen 
+    ?
     <Item style={styles.wrapper}>
       <HoverAnchor style={styles.archiveItem} className="row" href={`/snippet/${props.item._id}`}>
           <span className="col-6">
@@ -51,6 +58,25 @@ export default function ArchiveItem(props) {
           <div className="col-6">
             {props.item.topics ? props.item.topics.map((item) => <div key={item} style={styles.topic}>{item}</div>) : <div/>}
           </div>
+      </HoverAnchor>
+    </Item>
+    :
+    <Item style={styles.wrapper}>
+      <HoverAnchor style={styles.archiveItem} className="row" href={`/snippet/${props.item._id}`}>
+        <div className="col container">
+        <div className="row">
+          <div className='col'>
+            <h2>{props.item.title}</h2>
+            <div><i>{parseDate(props.item.date_created)}</i></div>
+            <p style={styles.noMarginBottom}>Author: {props.item.author ? props.item.author.name : ''}</p>
+          </div>
+        </div>
+        <div className="row">
+          <div className='col'>
+            {props.item.topics ? props.item.topics.map((item) => <div key={item} style={styles.topic}>{item}</div>) : <div/>}
+          </div>
+        </div>
+        </div>
       </HoverAnchor>
     </Item>
   );

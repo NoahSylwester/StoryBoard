@@ -1,6 +1,7 @@
 import React from 'react';
 import Colors from "../themes/colors";
 import styled, { keyframes } from 'styled-components'
+import { useMediaQuery } from 'react-responsive';
 
 const fadeIn = keyframes`
     from {
@@ -34,13 +35,17 @@ const HoverAnchor = styled.a`
 
 export default function ForumItem(props) {
 
+  const isSmallScreen = !useMediaQuery({
+    query: '(min-width: 750px)'
+  })
+
     const parseDate = (dateInput) => {
       const date = new Date(dateInput);
       return date.toUTCString();
     }
 
     return (
-      !props.splash ?
+      !props.splash && !isSmallScreen ?
       <Item style={styles.wrapper}>
         <HoverAnchor style={styles.forumItem} className="row" href={`/thread/${props.item._id}`}>
             <span className="col-6">
