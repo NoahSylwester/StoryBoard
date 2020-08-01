@@ -19,7 +19,7 @@ module.exports = {
         searchEntity = { $in: [ req.body.searchInput ] }
       }
       else if (req.body.searchOption === 'author') {
-        userSearchEntity = new RegExp(req.body.searchInput);
+        userSearchEntity = new RegExp(req.body.searchInput, "i");
 
         const findUser = async function() {
           await db.User

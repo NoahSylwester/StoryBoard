@@ -77,7 +77,7 @@ export default function EventsPage(props) {
     event.preventDefault();
     async function fetchSearchedEvents(){
       API.searchEvents({ searchInput, searchOption })
-      .then((events) => {console.log(events);setEventsPage(events.data)})
+      .then((events) => setEventsPage(events.data.length ? events.data : "no results"))
       .catch(err => {
         err.response.status === 401
         ?
@@ -102,7 +102,6 @@ export default function EventsPage(props) {
         </form>
       </div>
       <div style={styles.searchOptions}>
-        {/* <span>Search by: </span> */}
         <span onClick={() => setSearchOption('title')} style={searchOption === 'title' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Title</span>
         <span onClick={() => setSearchOption('date')} style={searchOption === 'date' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Date</span>
         <span onClick={() => setSearchOption('topics')} style={searchOption === 'topics' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Topic</span>
@@ -112,7 +111,12 @@ export default function EventsPage(props) {
       {eventsPage
       ?
       <div style={styles.eventsPageContent} className="container" >
-          {eventsPage.slice().reverse().map((item, i) => <EventItem key={i} item={item} />)}
+          {eventsPage !== "no results"
+          ?
+          eventsPage.slice().reverse().map((item, i) => <EventItem key={i} item={item} />)
+          :
+          <h3 style={{ margin: 50 }}>No results found.</h3>
+          }
       </div>
       :
       <SVGLoadingIcon small/>}

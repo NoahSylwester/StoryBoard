@@ -78,7 +78,7 @@ export default function Archive(props) {
     event.preventDefault();
     async function fetchSearchedSnippets(){
       API.searchSnippets({ searchInput, searchOption })
-      .then((snippets) => setArchive(snippets.data))
+      .then((snippets) => setArchive(snippets.data.length ? snippets.data : "no results"))
       .catch(err => {
         err.response.status === 401
         ?
@@ -102,7 +102,6 @@ export default function Archive(props) {
         </form>
       </div>
       <div style={styles.searchOptions}>
-        {/* <span>Search by: </span> */}
         <span onClick={() => setSearchOption('title')} style={searchOption === 'title' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Title</span>
         <span onClick={() => setSearchOption('author')} style={searchOption === 'author' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Author</span>
         <span onClick={() => setSearchOption('topics')} style={searchOption === 'topics' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Topic</span>
@@ -113,7 +112,13 @@ export default function Archive(props) {
       archive
       ?
       <div style={styles.archiveContent} className="container" >
-          {archive.slice().reverse().map((item, i) => <ArchiveItem key={i} item={item} />)}
+          {
+          archive !== "no results"
+          ?
+          archive.slice().reverse().map((item, i) => <ArchiveItem key={i} item={item} />)
+          :
+          <h3 style={{ margin: 50 }}>No results found.</h3>
+          }
       </div>
       :
       <SVGLoadingIcon small/>

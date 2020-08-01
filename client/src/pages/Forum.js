@@ -80,7 +80,7 @@ export default function Forum(props) {
     event.preventDefault();
     async function fetchSearchedThreads() {
       API.searchThreads({ searchInput, searchOption })
-      .then((threads) => setForum(threads.data))
+      .then((threads) => setForum(threads.data.length ? threads.data : "no results"))
       .catch(err => {
         err.response.status === 401
         ?
@@ -104,7 +104,6 @@ export default function Forum(props) {
         </form>
       </div>
       <div style={styles.searchOptions}>
-        {/* <span>Search by: </span> */}
         <span onClick={() => setSearchOption('title')} style={searchOption === 'title' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Title</span>
         <span onClick={() => setSearchOption('author')} style={searchOption === 'author' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Author</span>
         <span onClick={() => setSearchOption('topics')} style={searchOption === 'topics' ? styles.searchOptionSelected : styles.searchOptionUnselected}>Topic</span>
@@ -115,7 +114,13 @@ export default function Forum(props) {
       forum
       ?
       <div style={styles.forumContent} className="container">
-        {forum.slice().reverse().map((item, i) => <ForumItem key={i} item={item} />)}
+        {
+        forum !== "no results"
+        ?
+        forum.slice().reverse().map((item, i) => <ForumItem key={i} item={item} />)
+        :
+        <h3 style={{ margin: 50 }}>No results found.</h3>
+        }
       </div>
       :
       <SVGLoadingIcon small/>
