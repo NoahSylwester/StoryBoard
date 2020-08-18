@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/lore", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DB_URI || "mongodb://localhost/lore", { useNewUrlParser: true, useUnifiedTopology: true });
 // fix deprecation warnings
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
