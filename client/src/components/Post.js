@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import API from '../utils/API';
 import Colors from '../themes/colors';
+import styled, { keyframes } from 'styled-components';
+
+const expand = keyframes`
+    from {
+        opacity: 0;
+        margin-left: 500px;
+    }
+    to {
+        opacity: 1;
+        margin-left: 0;
+    }
+`;
+
+const RepliesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    overflow: hidden;
+    animation: ${expand} 0.4s;
+`
 
 export default function Post(props) {
 
@@ -46,9 +66,10 @@ export default function Post(props) {
                     <button onClick={collapseReplies} className="btn btn-sm btn-light" style={styles.collapseButton}>Collapse ({post.replies.length})</button>
                     }
                 </div>
-                <div style={styles.repliesContainer}>
-                    {expanded ? post.replies.reverse().map((reply) => <Post replyTo={(replyItem) => props.replyTo(replyItem)} setRepliedToPostFn={props.setRepliedToPostFn} key={props._id + reply._id} post={{ ...reply }} />) : <div/>}
-                </div>
+                {expanded ? <RepliesContainer>
+                    {post.replies.reverse().map((reply) => <Post replyTo={(replyItem) => props.replyTo(replyItem)} setRepliedToPostFn={props.setRepliedToPostFn} key={post._id + reply._id} post={{ ...reply }} />)}
+                </RepliesContainer>
+                : <div/>}
             </div>
             :
             <div>
@@ -60,9 +81,10 @@ export default function Post(props) {
                     <button onClick={collapseReplies} className="btn btn-sm btn-light" style={styles.collapseButton}>Collapse ({post.replies.length})</button>
                     }
                 </div>
-                <div style={styles.repliesContainer}>
-                    {expanded ? post.replies.reverse().map((reply) => <Post replyTo={(replyItem) => props.replyTo(replyItem)} setRepliedToPostFn={props.setRepliedToPostFn} key={post._id + reply._id} post={{ ...reply }} />) : <div/>}
-                </div>
+                {expanded ? <RepliesContainer>
+                    {post.replies.reverse().map((reply) => <Post replyTo={(replyItem) => props.replyTo(replyItem)} setRepliedToPostFn={props.setRepliedToPostFn} key={post._id + reply._id} post={{ ...reply }} />)}
+                </RepliesContainer>
+                : <div/>}
             </div>
             }
         </div>
@@ -104,9 +126,4 @@ const styles = {
         bottom: -10,
         border: '1px solid ' + Colors.border1
     },
-    repliesContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end'
-    }
 }
